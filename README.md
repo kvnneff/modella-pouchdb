@@ -22,7 +22,7 @@ var model = require('modella'),
 var UserDB = new PouchDB('Users');
 
 var User = model('user')
-  .attr('_id')
+  .attr('_id') // not required if you'd rather PouchDB manage the creation of ids
   .attr('name')
   .attr('email')
   .attr('password');
@@ -49,7 +49,7 @@ user.save(function(err) {
 
 ### Pouch(instance)
 
-Initialize PouchDB adaptor with a PouchDB instance.
+Initialize adaptor with a PouchDB instance.
 
 ### Model.all(callback)
 
@@ -66,6 +66,10 @@ Save the model (instance method)
 ### model.remove([options], callback)
 
 Remove the model (instance method)
+
+## Caveats
+
+modella-pouchdb attaches a `_rev` attribute every model.  This attribute is used and managed by the adaptor when updating documents in the database.  Note that if you modify that attribute on your models you will most likely encounter errors.
 
 ## Test
 
