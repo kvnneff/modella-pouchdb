@@ -4,7 +4,13 @@
 
 ## Installation
 
-    npm install modella-pouchdb
+Component:
+
+    component install staygrimm/modella-pouchdb
+
+npm:
+
+	npm install modella-pouchdb
 
 ## Example
 
@@ -60,6 +66,10 @@ Save the model (instance method)
 ### model.remove([options], callback)
 
 Remove the model (instance method)
+
+## Test
+
+	npm install && make test
 
 ## License
 
