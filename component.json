@@ -1,0 +1,8 @@
+{
+	"name": "modella-pouchdb",
+	"description": "pouchdb adaptor for modella",
+	"scripts": ["index.js"],
+	"dependencies": {
+		"visionmedia/debug": "*"
+	}
+}

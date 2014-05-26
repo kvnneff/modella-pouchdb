@@ -1,0 +1,21 @@
+{
+  "name": "pouchdb-adaptor",
+  "version": "0.0.1",
+  "description": "pouchdb adaptor for modella",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "author": "river grimm",
+  "license": "MIT",
+  "devDependencies": {
+    "debug": "^0.8.1",
+    "mocha": "*",
+    "modella": "^0.2.8",
+    "pouchdb": "^2.2.2",
+    "should": "*"
+  }
+}
