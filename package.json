@@ -17,5 +17,9 @@
     "modella": "^0.2.8",
     "pouchdb": "^2.2.2",
     "should": "*"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/staygrimm/modella-pouchdb.git"
   }
 }
