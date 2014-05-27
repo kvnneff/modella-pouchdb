@@ -12,10 +12,10 @@
   "author": "river grimm",
   "license": "GPL v2",
   "devDependencies": {
-    "debug": "^0.8.1",
+    "debug": "0.8.1",
     "mocha": "*",
-    "modella": "^0.2.8",
-    "pouchdb": "^2.2.2",
+    "modella": "0.2.8",
+    "pouchdb": "2.2.2",
     "should": "*"
   },
   "repository" : {
