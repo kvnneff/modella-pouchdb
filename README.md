@@ -37,7 +37,7 @@ User.use(pouchdb(UserDB));
 var user = new User;
 
 user.
-	.id(new Date().toISOString())
+	._id(new Date().toISOString())
     .email('river.grimm@gmail.com')
     .password('test');
 
@@ -70,7 +70,7 @@ Remove the model (instance method)
 
 ## Caveats
 
-modella-pouchdb attaches a `_rev` attribute every model.  This attribute is used and managed by the adaptor when updating documents in the database.  Note that if you modify that attribute on your models you will most likely encounter errors.
+modella-pouchdb attaches a `_rev` attribute to every model.  This attribute is used and managed by the adaptor when updating documents in the database.  Note that if you modify this attribute on your models you will most likely encounter errors.
 
 ## Test
 
