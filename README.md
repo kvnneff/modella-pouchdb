@@ -1,4 +1,5 @@
 # PouchDB
+[![Build Status](https://travis-ci.org/staygrimm/modella-pouchdb.svg?branch=master)](https://travis-ci.org/staygrimm/modella-pouchdb)
 
 [PouchDB](http://pouchdb.com/) plugin for [modella](https://github.com/modella/modella).
 
