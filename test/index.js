@@ -5,6 +5,7 @@
 var PouchDB = require('pouchdb'),
     model = require('modella'),
     adaptor = require('..'),
+    UserTwo,
     User,
     user,
     pouch;
@@ -13,10 +14,15 @@ pouch = new PouchDB('users');
 
 User = model('User')
     .attr('name')
+    .attr('nick');
+
+UserTwo = model('User')
+    .attr('name')
     .attr('nick')
-    .attr('_id');
+    .attr('id');
 
 User.use(adaptor(pouch));
+UserTwo.use(adaptor(pouch));
 
 describe('modella PouchDB', function () {
     after(function () {
@@ -36,8 +42,24 @@ describe('modella PouchDB', function () {
     });
 
     describe('save', function () {
-        it('should save the model', function (done) {
+        it('should save the model without primaryKey attribute', function (done) {
             user = new User();
+            user.name('foo');
+            user.nick('baz');
+            user.save(function (err, res) {
+                user.primary().should.be.ok;
+                res.should.be.ok;
+                pouch.get(user.primary(), function (err, doc) {
+                    doc.should.be.ok;
+                    doc.should.have.property('name', 'foo');
+                    doc.should.have.property('nick', 'baz');
+                    done();
+                });
+            });
+        });
+
+        it('should save the model with primaryKey attribute', function (done) {
+            user = new UserTwo();
             user.name('foo');
             user.nick('baz');
             user.save(function (err, res) {
@@ -103,7 +125,7 @@ describe('modella PouchDB', function () {
         it('should get all models', function (done) {
             User.all(function (err, users) {
                 (err === null).should.be.true;
-                users.should.have.length(3);
+                users.should.have.length(4);
                 users[0].should.be.an.instanceof(User);
                 done();
             });
