@@ -78,4 +78,4 @@ modella-pouchdb attaches a `_rev` attribute to every model.  This attribute is u
 
 ## License
 
-GPL v2
+MIT
