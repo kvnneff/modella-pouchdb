@@ -21,6 +21,11 @@ pouch = function pouch(db) {
         model.find = model.get = sync.find;
         model.all = sync.all;
         model.attr('_rev');
+
+        if (!model.primaryKey) {
+            model.attr('_id');
+        }
+
         return model;
     };
 };
