@@ -10,7 +10,7 @@
     "test": "make test"
   },
   "author": "river grimm",
-  "license": "GPL v2",
+  "license": "MIT",
   "devDependencies": {
     "debug": "0.8.1",
     "mocha": "*",
