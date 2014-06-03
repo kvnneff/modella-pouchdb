@@ -5,7 +5,7 @@
 	"description": "pouchdb adaptor for modella",
 	"keywords": ["pouchdb", "model", "db", "modella"],
 	"scripts": ["index.js"],
-	"license": "GPL v2",
+	"license": "MIT",
 	"dependencies": {
 		"visionmedia/debug": "*"
 	}
