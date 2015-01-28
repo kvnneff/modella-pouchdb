@@ -1,6 +1,6 @@
 {
   "name": "modella-pouchdb",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "pouchdb adaptor for modella",
   "main": "index.js",
   "directories": {
