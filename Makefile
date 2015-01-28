@@ -6,4 +6,7 @@ test: node_modules
 node_modules: package.json
 	@npm install -qs
 
+clean:
+	rm -rf ./node_modules
+
 .PHONY: test
