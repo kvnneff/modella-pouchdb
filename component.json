@@ -1,6 +1,6 @@
 {
 	"name": "modella-pouchdb",
-	"version": "0.0.2",
+	"version": "1.0.0",
 	"repository": "staygrimm/modella-pouchdb",
 	"description": "pouchdb adaptor for modella",
 	"keywords": ["pouchdb", "model", "db", "modella"],
