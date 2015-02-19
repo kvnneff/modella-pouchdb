@@ -1,32 +1,24 @@
 'use strict';
 
-var debug = require('debug')('modella:pouchdb'),
-    sync = {},
-    pouch;
+var debug = require('debug')('modella:pouchdb');
+var sync = {};
+var Pouch;
 
 /**
  * Export `PouchDB`
  */
 
-pouch = function pouch(db) {
-    if (!db) {
-        throw new TypeError('expected: PouchDB Instance');
-    }
-
+Pouch = function Pouch(db) {
+    if (!db) throw new TypeError('expected: PouchDB Instance');
     return function (model) {
-        model.db = db;
-        model.update = sync.save;
-        model.save = sync.save;
-        model.remove = sync.remove;
-        model.find = model.get = sync.find;
-        model.query = sync.query;
-        model.createDesignDoc = sync.createDesignDoc;
-        model.all = sync.all;
-        model.attr('_rev');
-
-        if (!model.primaryKey) {
-            model.attr('_id');
+        for (var key in sync) {
+            model[key] = sync[key]
         }
+        model.db = db;
+        model.attr('_rev');
+        model.attr('_id');
+        model.get = model.find;
+        model.update = model.save;
 
         return model;
     };
@@ -38,14 +30,13 @@ pouch = function pouch(db) {
  * @return {json}      JSON representation of the model
  */
 sync.save = function save(cb) {
-    var self = this,
-        db = this.model.db,
-        json = this.toJSON(),
-        callback;
+    var self = this;
+    var db = this.model.db;
+    var json = this.toJSON();
 
     debug('saving... %j', json);
 
-    callback = function (err, res) {
+    function callback(err, res) {
         if (err) {
             return cb(err);
         }
@@ -71,16 +62,13 @@ sync.save = function save(cb) {
  * @return {null}      Returns null on success
  */
 sync.remove = function remove(cb) {
-    var json = this.toJSON(),
-        db = this.model.db;
+    var json = this.toJSON();
+    var db = this.model.db;
 
     debug('removing... %j', json);
 
     db.remove(json, function (err) {
-        if (err) {
-            return cb(err);
-        }
-
+        if (err) return cb(err);
         debug('removed %j', json);
         return cb(null);
     });
@@ -92,24 +80,18 @@ sync.remove = function remove(cb) {
  * @return {Array}      Returns an array of models
  */
 sync.all = function all(cb) {
-    var self = this,
-        db = this.db;
+    var self = this;
+    var db = this.db;
 
     debug('retrieving all models...');
 
     db.allDocs({include_docs: true}, function (err, res) {
-        if (err) {
-            return cb(err);
-        }
-
-        var i = res.rows.length,
-            models = [];
-
-        while (i--) {
-            models.push(new self(res.rows[i].doc));
-        }
-
-        return cb(null, models);
+        if (err) return cb(err);
+        var collection = []
+        res.rows.forEach(function (row) {
+            collection.push(new self(row.doc));
+        });
+        return cb(null, collection);
     });
 };
 
@@ -120,14 +102,11 @@ sync.all = function all(cb) {
  * @return {Object}      Returns an instance of model
  */
 sync.find = function find(id, cb) {
-    var self = this,
-        db = this.db;
+    var self = this;
+    var db = this.db;
 
     db.get(id, function (err, doc) {
-        if (err) {
-            return cb(err);
-        }
-
+        if (err) return cb(err);
         return cb(null, new self(doc));
     });
 };
@@ -175,4 +154,7 @@ sync.query = function query(name, options, cb) {
     });
 };
 
-module.exports = pouch;
+/**
+ * Expose `Pouch`
+ */
+module.exports = Pouch;
