@@ -19,6 +19,8 @@ pouch = function pouch(db) {
         model.save = sync.save;
         model.remove = sync.remove;
         model.find = model.get = sync.find;
+        model.query = sync.query;
+        model.createDesignDoc = sync.createDesignDoc;
         model.all = sync.all;
         model.attr('_rev');
 
@@ -99,7 +101,7 @@ sync.all = function all(cb) {
         if (err) {
             return cb(err);
         }
-        
+
         var i = res.rows.length,
             models = [];
 
@@ -127,6 +129,49 @@ sync.find = function find(id, cb) {
         }
 
         return cb(null, new self(doc));
+    });
+};
+
+/**
+ * Simple helper for creating and storing design docs.
+ * @param  {String} name
+ * @param  {Function} mapFunction
+ * @return {Object}
+ * @api public
+ */
+sync.createDesignDoc = function createDesignDoc(name, mapFunction, cb) {
+    var db = this.db;
+    var designDoc = {
+        _id: '_design/' + name,
+        views: {}
+    };
+    designDoc.views[name] = {map: mapFunction.toString()};
+    db.put(designDoc, function (err, res) {
+        if (err) return cb(err);
+        return cb(null, res);
+    });
+};
+
+/**
+ * Perform a query and return the results
+ * @param  {String}   name    Query name
+ * @param  {Object}   options PouchDB options object
+ * @param  {Function} cb      Callback
+ * @return {Array}           Returns collection
+ * @api public
+ */
+sync.query = function query(name, options, cb) {
+    options = options || {};
+    var self = this;
+    var db = this.db;
+    var collection = [];
+    options.include_docs = true;
+    db.query(name, options, function (err, res) {
+        if (err) return cb(err);
+        res.rows.forEach(function (doc) {
+            collection.push(new self(doc.doc));
+        });
+        return cb(null, collection);
     });
 };
 

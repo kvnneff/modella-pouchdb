@@ -150,4 +150,38 @@ describe('modella PouchDB', function () {
             });
         });
     });
+    describe('createDesignDoc', function () {
+        it('should create a design document', function () {
+            var expected = {
+                _id: '_design/foo',
+                views: {
+                    foo: {
+                        map: 'function (doc) {\nemit(bar);\n}'
+                    }
+                }
+            };
+            var designDoc = User.createDesignDoc('foo', function (doc) {
+                emit('bar');
+            }, function (err, res) {
+                var expectedId = '_design/foo';
+                res.ok.should.equal.true;
+                res.id.should.equal.expectedId;
+            });
+        });
+    });
+    describe('query', function () {
+        it('should query the db using a design document', function (done) {
+            var designDoc = User.createDesignDoc('foo', function () {
+                emit(doc._id);
+            }, function (err, res) {
+                User.query('foo', {}, function (err, docs) {
+                    var expected = 4;
+                    var length = docs.length;
+                    (err === null).should.be.true;
+                    length.should.equal.expected;
+                    done();
+                });
+            });
+        });
+    });
 });
