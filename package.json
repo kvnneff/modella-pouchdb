@@ -1,6 +1,6 @@
 {
   "name": "modella-pouchdb",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "pouchdb adaptor for modella",
   "main": "index.js",
   "directories": {
@@ -13,13 +13,13 @@
   "license": "MIT",
   "devDependencies": {
     "debug": "0.8.1",
-    "mocha": "*",
+    "mocha": "^2.1.0",
     "modella": "0.2.8",
     "pouchdb": "2.2.2",
-    "should": "*"
+    "should": "^5.0.0"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/staygrimm/modella-pouchdb.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/staygrimm/modella-pouchdb.git"
   }
 }
