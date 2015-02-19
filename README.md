@@ -16,19 +16,18 @@ npm:
 ## Example
 
 ```js
-var model = require('modella'),
-	pouch = require('modella-pouchdb'),
-	PouchDB = require('pouchdb');
+var model = require('modella');
+var pouch = require('modella-pouchdb');
+var PouchDB = require('pouchdb');
 
 var UserDB = new PouchDB('Users');
 
-var User = model('user')
-  .attr('_id') // not required if you'd rather PouchDB manage the creation of ids
+var User = model('User')
+  .attr('_id')
   .attr('name')
-  .attr('email')
-  .attr('password');
+  .attr('email');
 
-User.use(pouchdb(UserDB));
+User.use(pouch(UserDB));
 
 /**
  * Initialize
@@ -38,11 +37,11 @@ var user = new User;
 
 user.
 	._id(new Date().toISOString())
-    .email('river.grimm@gmail.com')
-    .password('test');
+    .name('foo')
+    .email('foo@gmail.com');
 
 user.save(function(err) {
-  console.log(user.toJSON());
+  // do something
 });
 ```
 
@@ -60,6 +59,15 @@ Get all models (static method)
 
 Find a model (static method)
 
+### Model.createDesignDoc(name, mapFunction, callback)
+
+Create a design document and store it in PouchDB instance
+
+### Model.query(name, options, callback)
+
+Query view named `name`, with PouchDB `options`, returning `callback` with an error
+or array of result docs
+
 ### model.save([options], callback)
 
 Save the model (instance method)
@@ -67,6 +75,7 @@ Save the model (instance method)
 ### model.remove([options], callback)
 
 Remove the model (instance method)
+
 
 ## Caveats
 
