@@ -89,7 +89,7 @@ sync.all = function all(cb) {
         if (err) return cb(err);
         var collection = []
         res.rows.forEach(function (row) {
-            if (row.doc._id.substring(0, 6) !== '_design') {
+            if (row.doc._id.substring(0, 7) !== '_design') {
                 collection.push(new self(row.doc));
             }
         });
