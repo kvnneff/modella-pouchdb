@@ -1,0 +1,23 @@
+{
+	"name": "modella-pouchdb",
+	"version": "1.0.1",
+	"description": "pouchdb adaptor for modella",
+  "main": [
+    "index.js"
+  ],
+  "dependencies": {
+    "visionmedia/debug": "*"
+  },
+  "authors": [
+    "River Grimm <river.grimm@gmail.com>"
+  ],
+  "keywords": ["pouchdb", "model", "db", "modella"],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
