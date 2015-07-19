@@ -13,6 +13,9 @@ npm:
 
 	npm install modella-pouchdb
 
+bower:
+  bower install modella-pouchdb
+
 ## Example
 
 ```js
